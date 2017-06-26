@@ -1,19 +1,28 @@
 package root.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import root.entity.Reading;
 import root.entity.Vehicle;
+import root.repository.VehicleRepository;
 import root.service.VehicleService;
 
 import java.util.List;
 
 @Service
 public class VehicleServiceImpl implements VehicleService {
+
+    @Autowired
+    private VehicleRepository repository;
+
+    @Transactional
     public List<Vehicle> loadVehicles(List<Vehicle> vehicles) {
-        return null;
+        return repository.loadVehicles(vehicles);
     }
 
+    @Transactional
     public Reading ingestReading(Reading reading) {
-        return null;
+        return repository.ingestReading(reading);
     }
 }
