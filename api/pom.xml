@@ -5,7 +5,7 @@
   <groupId>io.egen</groupId>
   <artifactId>tracker</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
 
   <name>tracker</name>
   <url>http://maven.apache.org</url>
@@ -51,6 +51,6 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>6.0.6</version>
     </dependency>
-    
+
   </dependencies>
 </project>
