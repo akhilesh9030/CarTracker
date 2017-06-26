@@ -20,11 +20,11 @@ public class VehicleController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "vehicles", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Vehicle> loadVehicles(@RequestBody List<Vehicle> vehicles){
-        return null;
+        return service.loadVehicles(vehicles);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "readings", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Reading ingestReadings(@RequestBody Reading reading){
-        return null;
+    public Reading ingestReading(@RequestBody Reading reading){
+        return service.ingestReading(reading);
     }
 }
