@@ -1,4 +1,4 @@
-package io.egen;
+package root;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
