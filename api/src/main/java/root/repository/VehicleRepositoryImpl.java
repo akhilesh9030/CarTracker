@@ -2,6 +2,7 @@ package root.repository;
 
 
 import org.springframework.stereotype.Repository;
+import root.entity.Alert;
 import root.entity.Reading;
 import root.entity.Tires;
 import root.entity.Vehicle;
@@ -30,7 +31,7 @@ public class VehicleRepositoryImpl implements VehicleRepository {
     }
 
     public Reading ingestReading(Reading reading) {
-        
+
         Tires tires = new Tires();
 
         tires.setFrontLeft(reading.getTires().getFrontLeft());
@@ -47,5 +48,10 @@ public class VehicleRepositoryImpl implements VehicleRepository {
 
     public Vehicle findByVin(String vin) {
         return em.find(Vehicle.class, vin);
+    }
+
+    public Alert storeAlert(Alert alert) {
+        em.persist(alert);
+        return alert;
     }
 }
