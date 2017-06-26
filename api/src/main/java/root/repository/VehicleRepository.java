@@ -9,4 +9,5 @@ import java.util.List;
 public interface VehicleRepository {
     public List<Vehicle> loadVehicles(List<Vehicle> vehicles);
     public Reading ingestReading(Reading reading);
+    public Vehicle findByVin(String vin);
 }
