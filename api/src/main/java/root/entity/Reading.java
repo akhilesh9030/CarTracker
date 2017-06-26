@@ -4,10 +4,19 @@ package root.entity;
 
 import org.springframework.stereotype.Component;
 
-@Component
+import javax.persistence.*;
+import java.util.UUID;
+
+
+@Entity
 public class Reading {
 
+    @Id
+    @Column(columnDefinition = "VARCHAR(36)")
+    private String id;
+
     private String vin;
+
     private double latitude;
     private double longitude;
     private String timestamp;
@@ -18,7 +27,21 @@ public class Reading {
     private boolean engineCoolantLow;
     private boolean cruiseControlOn;
     private int engineRpm;
+
+    @OneToOne
     private Tires tires;
+
+    public Reading() {
+        this.id = UUID.randomUUID().toString();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getVin() {
         return vin;
@@ -119,7 +142,8 @@ public class Reading {
     @Override
     public String toString() {
         return "Reading{" +
-                "vin='" + vin + '\'' +
+                "id='" + id + '\'' +
+                ", vin='" + vin + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 ", timestamp='" + timestamp + '\'' +
