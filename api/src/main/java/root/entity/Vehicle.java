@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import java.util.Date;
 
 @Entity
 public class Vehicle {
@@ -19,7 +20,7 @@ public class Vehicle {
     private int year;
     private int redLineRpm;
     private int maxFuelVolume;
-    private String lastServiceDate;
+    private Date lastServiceDate;
 
 
     public String getVin() {
@@ -70,11 +71,11 @@ public class Vehicle {
         this.maxFuelVolume = maxFuelVolume;
     }
 
-    public String getLastServiceDate() {
+    public Date getLastServiceDate() {
         return lastServiceDate;
     }
 
-    public void setLastServiceDate(String lastServiceDate) {
+    public void setLastServiceDate(Date lastServiceDate) {
         this.lastServiceDate = lastServiceDate;
     }
 

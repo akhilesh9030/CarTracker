@@ -5,6 +5,7 @@ package root.entity;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -19,7 +20,7 @@ public class Reading {
 
     private double latitude;
     private double longitude;
-    private String timestamp;
+    private Date timestamp;
     private double fuelVolume;
     private double speed;
     private double engineHp;
@@ -67,11 +68,11 @@ public class Reading {
         this.longitude = longitude;
     }
 
-    public String getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 
