@@ -15,16 +15,11 @@ public class VehicleController {
     @Autowired
     VehicleService service;
 
-
     @RequestMapping(method = RequestMethod.PUT, value = "vehicles", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @CrossOrigin
+    @CrossOrigin(origins = "http://mocker.egen.io", maxAge = 3600)
     public List<Vehicle> loadVehicles(@RequestBody List<Vehicle> vehicles){
         return service.loadVehicles(vehicles);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "readings", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @CrossOrigin
-    public Reading ingestReading(@RequestBody Reading reading){
-        return service.ingestReading(reading);
-    }
+
 }

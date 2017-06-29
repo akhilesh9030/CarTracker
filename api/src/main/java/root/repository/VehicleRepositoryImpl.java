@@ -30,28 +30,11 @@ public class VehicleRepositoryImpl implements VehicleRepository {
         return vehicles;
     }
 
-    public Reading ingestReading(Reading reading) {
 
-        Tires tires = new Tires();
-
-        tires.setFrontLeft(reading.getTires().getFrontLeft());
-        tires.setFrontRight(reading.getTires().getFrontRight());
-        tires.setRearLeft(reading.getTires().getRearLeft());
-        tires.setRearRight(reading.getTires().getRearRight());
-
-        em.persist(tires);
-        reading.setTires(tires);
-        em.persist(reading);
-
-        return reading;
-    }
 
     public Vehicle findByVin(String vin) {
         return em.find(Vehicle.class, vin);
     }
 
-    public Alert storeAlert(Alert alert) {
-        em.persist(alert);
-        return alert;
-    }
+
 }
