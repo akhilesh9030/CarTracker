@@ -10,6 +10,7 @@ import root.service.VehicleService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
@@ -20,7 +21,7 @@ public class VehicleRepositoryImpl implements VehicleRepository {
 
     public List<Vehicle> loadVehicles(List<Vehicle> vehicles) {
         for(Vehicle vehicle: vehicles){
-            if(findByVin(vehicle.getVin()) == null){
+            if(findOne(vehicle.getVin()) == null){
                 em.persist(vehicle);
             }
             else{
@@ -30,10 +31,17 @@ public class VehicleRepositoryImpl implements VehicleRepository {
         return vehicles;
     }
 
+    public List<Vehicle> getAll() {
+        TypedQuery<Vehicle> query = em.createNamedQuery("Vehicle.getAll",Vehicle.class);
+        return query.getResultList();
+    }
 
+    public Vehicle findOne(String v_id) {
+        return em.find(Vehicle.class,v_id);
+    }
 
-    public Vehicle findByVin(String vin) {
-        return em.find(Vehicle.class, vin);
+    public void delete(Vehicle v) {
+        em.remove(v);
     }
 
 

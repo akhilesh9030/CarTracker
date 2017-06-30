@@ -12,6 +12,8 @@ import root.exceptions.ResourceNotFoundException;
 import root.repository.ReadingRepository;
 import root.repository.VehicleRepository;
 
+import java.util.List;
+
 @Service
 public class ReadingServiceImpl implements ReadingService {
 
@@ -23,50 +25,45 @@ public class ReadingServiceImpl implements ReadingService {
 
     @Transactional
     public Reading ingestReading(Reading reading) {
-        Vehicle vehicle = vehicleRepository.findByVin(reading.getVin());
+        Vehicle vehicle = vehicleRepository.findOne(reading.getVin());
         Tires tires = reading.getTires();
-
-        Alert alert = null;
 
         if(vehicle == null){
             throw new ResourceNotFoundException("Vehicle with vin id: " + reading.getVin() + " does not exist.");
         }
         else{
             if(reading.getEngineRpm() > vehicle.getRedLineRpm()){
-                alert = new Alert();
-                alert.setPriority("HIGH");
-                alert.setRule("engineRpm > readlineRpm");
-                alert.setVin(reading.getVin());
-                readingRepository.storeAlert(alert);
+                storeAlert(reading, "HIGH","engineRpm > readlineRpm");
             }
             if(reading.getFuelVolume() < 0.1*vehicle.getMaxFuelVolume()){
-                alert = new Alert();
-                alert.setPriority("MEDIUM");
-                alert.setRule("fuelVolume < 10% of maxFuelVolume");
-                alert.setVin(reading.getVin());
-                readingRepository.storeAlert(alert);
+                storeAlert(reading, "MEDIUM","fuelVolume < 10% of maxFuelVolume");
             }
             if(!(tires.getFrontLeft() >= 32 && tires.getFrontLeft() <= 36) ||
                     !(tires.getFrontRight() >= 32 && tires.getFrontRight() <= 36) ||
                     !(tires.getRearLeft() >= 32 && tires.getRearLeft() <= 36)   ||
                     !(tires.getRearRight() >= 32 && tires.getRearRight() <= 36)){
 
-                alert = new Alert();
-                alert.setPriority("LOW");
-                alert.setRule("tire pressure of any tire < 32psi || > 36psi");
-                alert.setVin(reading.getVin());
-                readingRepository.storeAlert(alert);
+                storeAlert(reading, "LOW","tire pressure of any tire < 32psi || > 36psi");
 
             }
             if(reading.isEngineCoolantLow() == true || reading.isCheckEngineLightOn() == true){
-                alert = new Alert();
-                alert.setPriority("LOW");
-                alert.setRule("engineCoolantLow = true || checkEngineLightOn = true");
-                alert.setVin(reading.getVin());
-                readingRepository.storeAlert(alert);
+                storeAlert(reading, "LOW","engineCoolantLow = true || checkEngineLightOn = true");
             }
         }
-
         return readingRepository.ingestReading(reading);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Reading> findAll() {
+        return readingRepository.findAll();
+    }
+
+    public void storeAlert(Reading reading, String priority, String rule){
+        Alert alert = new Alert();
+        alert.setPriority(priority);
+        alert.setRule(rule);
+        alert.setReading_id(reading.getId());
+        alert.setVin(reading.getVin());
+        readingRepository.storeAlert(alert);
     }
 }

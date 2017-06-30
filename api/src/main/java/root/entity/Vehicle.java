@@ -10,6 +10,9 @@ import javax.persistence.NamedQuery;
 import java.util.Date;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name="Vehicle.getAll",query="SELECT v FROM Vehicle v ORDER BY v.make")
+})
 public class Vehicle {
 
     @Id

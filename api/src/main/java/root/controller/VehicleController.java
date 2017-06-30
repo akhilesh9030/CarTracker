@@ -21,5 +21,20 @@ public class VehicleController {
         return service.loadVehicles(vehicles);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value="vehicles", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<Vehicle> getAll(){
+        return service.getAll();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "vehicles/{vin}")
+    public Vehicle findOne(@PathVariable("vin") String v_id){
+        return service.findOne(v_id);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "vehicles/{vin}")
+    public void delete(@PathVariable("vin") String v_id){
+        service.delete(v_id);
+    }
+
 
 }

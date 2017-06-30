@@ -5,9 +5,12 @@ import org.springframework.stereotype.Repository;
 import root.entity.Alert;
 import root.entity.Reading;
 import root.entity.Tires;
+import root.entity.Vehicle;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Repository
 public class ReadingRepositoryImpl implements ReadingRepository{
@@ -35,4 +38,10 @@ public class ReadingRepositoryImpl implements ReadingRepository{
         em.persist(alert);
         return alert;
     }
+
+    public List<Reading> findAll() {
+        TypedQuery<Reading> query = em.createNamedQuery("Reading.getAll",Reading.class);
+        return query.getResultList();
+    }
+
 }

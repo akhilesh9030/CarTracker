@@ -10,6 +10,9 @@ import java.util.UUID;
 
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name="Reading.getAll",query="SELECT r FROM Reading r ORDER BY r.timestamp DESC")
+})
 public class Reading {
 
     @Id

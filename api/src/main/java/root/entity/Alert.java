@@ -1,7 +1,5 @@
 package root.entity;
 
-import root.enums.Rule;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.UUID;
@@ -13,6 +11,8 @@ public class Alert {
     private String id;
 
     private String vin;
+
+    private String reading_id;
 
     private String rule;
     private String priority;
@@ -48,5 +48,17 @@ public class Alert {
 
     public void setPriority(String priority) {
         this.priority = priority;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getReading_id() {
+        return reading_id;
+    }
+
+    public void setReading_id(String reading_id) {
+        this.reading_id = reading_id;
     }
 }
